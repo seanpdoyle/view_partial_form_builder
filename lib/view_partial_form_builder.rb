@@ -1,5 +1,5 @@
 require "view_partial_form_builder/engine"
 
 module ViewPartialFormBuilder
-  # Your code goes here...
+  mattr_accessor :view_partial_directory, default: "form_builder"
 end
