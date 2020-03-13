@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.version     = ViewPartialFormBuilder::VERSION
   spec.authors     = ["Sean Doyle"]
   spec.email       = ["sean.p.doyle24@gmail.com"]
-  spec.homepage    = "TODO"
-  spec.summary     = "TODO: Summary of ViewPartialFormBuilder."
-  spec.description = "TODO: Description of ViewPartialFormBuilder."
+  spec.homepage    = "https://github.com/seanpdoyle/view_partial_form_builder"
+  spec.summary     = "Construct <form> element fields by combining ActionView::Helpers::FormBuilder with Rails View Partials"
+  spec.description = "A Rails form builder where all designer-facing configuration is via templates."
   spec.license     = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
