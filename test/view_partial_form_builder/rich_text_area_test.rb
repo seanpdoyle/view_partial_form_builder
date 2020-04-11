@@ -1,6 +1,12 @@
 require "form_builder_test_case"
 
 class ViewPartialFormBuilderRichTextAreaTest < FormBuilderTestCase
+  def setup
+    unless defined?(ActionText)
+      skip "Skipping ActionText tests for rails@#{Rails.version}"
+    end
+  end
+
   test "renders defaults when overrides are not declared" do
     declare_template "application/_form.html.erb", <<~HTML
       <%= form_with(model: Post.new) do |form| %>
