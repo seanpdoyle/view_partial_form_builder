@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -e
+
+bundle install --jobs 4 --retry 3

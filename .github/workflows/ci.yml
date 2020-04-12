@@ -36,5 +36,5 @@ jobs:
 
     - name: "Build and test"
       run: |
-        bundle install --jobs 4 --retry 3
+        bin/setup
         bin/rails test
