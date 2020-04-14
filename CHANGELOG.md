@@ -8,6 +8,8 @@ version links.
 
 ## master
 
+## [0.1.1] - April 13, 2020
+
 Passing a `partial:` key can be useful for layering partials on top of one
 another. Enable rendering partials within partials:
 
