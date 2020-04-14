@@ -240,6 +240,59 @@ as the `partial:` option:
 <% end %>
 ```
 
+#### Composing partials
+
+Passing a `partial:` key can be useful for layering partials on top of one
+another. For instance, consider an administrative interface that shares styles
+with a consumer facing site, but has additional bells and whistles.
+
+Declare the consumer facing inputs (in this example, `<input type="search">`):
+
+```html+erb
+<%# app/views/form_builder/_search_field.html.erb %>
+
+<%= form.search_field(
+  *arguments,
+  **options.merge_token_lists(
+    class: "search-field",
+    "data-controller": "input->search#executeQuery",
+  ),
+) %>
+```
+
+Then, declare the administrative interface's inputs, in terms of overriding the
+foundation built by the more general definitions:
+
+```html+erb
+<%# app/views/admin/form_builder/_search_field.html.erb %>
+
+<%= form.search_field(
+  *arguments,
+  partial: "form_builder/search_field",
+  **options.merge_token_lists(
+    class: "search-field--admin",
+    "data-controller": "focus->admin-search#clearResults",
+  ),
+) %>
+```
+
+The rendered `admin/form_builder/search_field` partial combines options and
+arguments from both partials:
+
+```html
+<input
+  type="search"
+  class="
+    search-field
+    search-field--admin
+  "
+  data-controller="
+    input->search#executeQuery
+    focus->admin-search#clearResults
+  "
+>
+```
+
 ### Configuration
 
 View partials lookup and resolution will be scoped to the

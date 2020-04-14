@@ -250,19 +250,22 @@ module ViewPartialFormBuilder
     attr_reader :lookup_context
 
     def render_partial(field, locals, fallback:, &block)
-      return fallback.call if about_to_recurse_infinitely?(field)
-
       options = locals.fetch(:options, {})
       partial_override = options.delete(:partial)
-      locals = objectify_options(options).merge(locals, form: self)
 
-      lookup_context.override do
-        if partial_override.present?
-          render(partial_override, locals, &block)
-        elsif partial_exists?(field)
-          render(field, locals, &block)
-        else
-          fallback.call
+      if about_to_recurse_infinitely?(field, partial_override)
+        fallback.call
+      else
+        locals = objectify_options(options).merge(locals, form: self)
+
+        lookup_context.override do
+          if partial_override.present?
+            render(partial_override, locals, &block)
+          elsif partial_exists?(field)
+            render(field, locals, &block)
+          else
+            fallback.call
+          end
         end
       end
     end
@@ -285,11 +288,13 @@ module ViewPartialFormBuilder
       end
     end
 
-    def about_to_recurse_infinitely?(field)
+    def about_to_recurse_infinitely?(field, partial_override)
       @template.instance_eval do
-        *, partial = @virtual_path.split("/")
+        current_partial = @virtual_path.gsub("/_", "/")
+        currently_rendering_field = current_partial.end_with?(field)
 
-        partial == "_#{field}"
+        return true if currently_rendering_field && partial_override.nil?
+        return true if currently_rendering_field && partial_override == current_partial
       end
     end
   end
