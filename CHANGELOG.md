@@ -8,6 +8,8 @@ version links.
 
 ## master
 
+## [0.1.2] - April 16, 2020
+
 Bugfix: when a partial (for example,
 `app/views/application/_my_text_field.html.erb`) called the
 `ViewPartialFormBuilder` method ending in the same name (in this example:
