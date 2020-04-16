@@ -33,6 +33,27 @@ class ViewPartialFormBuilderTest < FormBuilderTestCase
     assert_select("label", text: "Label from partial")
   end
 
+  test "renders a ViewPartialFormBuilder partial from within another partial" do
+    declare_template "application/_form.html.erb", <<~HTML
+      <%= form_with(model: Post.new) do |form| %>
+        <%= render(partial: "posts/my_text_field", locals: { form: form }) %>
+      <% end %>
+    HTML
+    declare_template "posts/_my_text_field.html.erb", <<~HTML
+      <%= form.text_field :name, class: "my-partial-text-field" %>
+    HTML
+    declare_template "form_builder/_text_field.html.erb", <<~HTML
+      <%= form.text_field(
+        *arguments,
+        **options.merge_token_lists(class: "text-field"),
+      ) %>
+    HTML
+
+    render(partial: "application/form")
+
+    assert_select %([class~="text-field"][class~="my-partial-text-field"])
+  end
+
   test "renders the most-specific partial available" do
     declare_template "application/_form.html.erb", <<~HTML
       <%= form_with(model: Post.new) do |form| %>

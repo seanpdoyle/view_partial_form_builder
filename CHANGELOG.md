@@ -8,6 +8,12 @@ version links.
 
 ## master
 
+Bugfix: when a partial (for example,
+`app/views/application/_my_text_field.html.erb`) called the
+`ViewPartialFormBuilder` method ending in the same name (in this example:
+`app/views/form_builder/_text_field.html.erb`), infinite recursion protection
+would kick in, and the field partial would _not_ be rendered.
+
 ## [0.1.1] - April 13, 2020
 
 Passing a `partial:` key can be useful for layering partials on top of one

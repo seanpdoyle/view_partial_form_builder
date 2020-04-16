@@ -290,8 +290,9 @@ module ViewPartialFormBuilder
 
     def about_to_recurse_infinitely?(field, partial_override)
       @template.instance_eval do
+        partial_name = "/#{field}"
         current_partial = @virtual_path.gsub("/_", "/")
-        currently_rendering_field = current_partial.end_with?(field)
+        currently_rendering_field = current_partial.end_with?(partial_name)
 
         return true if currently_rendering_field && partial_override.nil?
         return true if currently_rendering_field && partial_override == current_partial
