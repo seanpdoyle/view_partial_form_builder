@@ -20,7 +20,7 @@ class ViewPartialFormBuilderSubmitTest < FormBuilderTestCase
       <% end %>
     HTML
     declare_template "application/form_builder/_submit.html.erb", <<~'HTML'
-      <%= form.default.submit(
+      <%= form.submit(
         value,
         class: "submit #{options.delete(:class)}",
         **options,
@@ -29,7 +29,7 @@ class ViewPartialFormBuilderSubmitTest < FormBuilderTestCase
 
     render(partial: "application/form")
 
-    assert_select %([type="submit"][value="Make Post"][class="submit my-submit"])
+    assert_select %([type="submit"][class="submit my-submit"]), value: "Make Post"
   end
 
   test "makes `value` available" do
@@ -39,12 +39,12 @@ class ViewPartialFormBuilderSubmitTest < FormBuilderTestCase
       <% end %>
     HTML
     declare_template "application/form_builder/_submit.html.erb", <<~HTML
-      <button type="submit" class="my-button"><%= value %></button>
+      <input type="submit" class="my-button" value="<%= value %>">
     HTML
 
     render(partial: "application/form")
 
-    assert_select("button.my-button", text: "Make Post")
+    assert_select("input.my-button", value: "Make Post")
   end
 
   test "makes `value` available when not passed" do
@@ -54,12 +54,12 @@ class ViewPartialFormBuilderSubmitTest < FormBuilderTestCase
       <% end %>
     HTML
     declare_template "application/form_builder/_submit.html.erb", <<~HTML
-      <button type="submit" class="my-button"><%= value %></button>
+      <input type="submit" class="my-button" value="<%= value %>">
     HTML
 
     render(partial: "application/form")
 
-    assert_select("button", text: "Create Post")
+    assert_select("input", value: "Create Post")
   end
 
   test "makes internationalized `value` when not passed" do
@@ -72,11 +72,11 @@ class ViewPartialFormBuilderSubmitTest < FormBuilderTestCase
       <% end %>
     HTML
     declare_template "application/form_builder/_submit.html.erb", <<~HTML
-      <button type="submit" class="my-button"><%= value %></button>
+      <input type="submit" class="my-button" value="<%= value %>">
     HTML
 
     render(partial: "application/form")
 
-    assert_select("button.my-button", text: "Make Post")
+    assert_select("input.my-button", value: "Make Post")
   end
 end

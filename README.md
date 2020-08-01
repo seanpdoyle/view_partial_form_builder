@@ -247,7 +247,7 @@ Declare the consumer facing inputs (in this example, `<input type="search">`):
   method,
   class: "
     search-field
-    #{options.delete(:class}
+    #{options.delete(:class)}
   ",
   "data-controller": "
     input->search#executeQuery
