@@ -16,6 +16,8 @@ jobs:
         include:
           - ruby: "2.7"
             rails: "5.2"
+          - ruby: "3.2"
+            rails: "main"
 
     env:
       RAILS_VERSION: "${{ matrix.rails }}"
