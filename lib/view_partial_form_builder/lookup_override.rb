@@ -21,6 +21,14 @@ module ViewPartialFormBuilder
       prefixes.uniq
     end
 
+    def prefixes_after(current_prefix)
+      if prefixes.include?(current_prefix)
+        prefixes.from(prefixes.index(current_prefix).to_i + 1)
+      else
+        prefixes
+      end
+    end
+
     private
 
     attr_reader :object_name, :view_partial_directory

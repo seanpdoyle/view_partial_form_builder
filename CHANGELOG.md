@@ -8,6 +8,9 @@ version links.
 
 ## main
 
+Implement the `FormBuilder` interface by proxying its underlying view
+`@template` instance to `ViewPartialFormBuilder::TemplateProxy`.
+
 Remove support for `partial:` option to override which partial is to be rendered
 by `ViewPartialFormBuilder::FormBuilder`.
 
