@@ -9,9 +9,13 @@ jobs:
     runs-on: "ubuntu-latest"
 
     strategy:
+      fail-fast: false
       matrix:
         ruby: ["2.6", "2.7"]
         rails: ["5.2", "6.0", "master"]
+        include:
+          - rails: "master"
+            continue-on-error: true
 
     env:
       RAILS_VERSION: "${{ matrix.rails }}"
@@ -35,6 +39,7 @@ jobs:
         key: bundle-${{ hashFiles('Gemfile.lock') }}
 
     - name: "Build and test"
+      continue-on-error: ${{ matrix.continue-on-error }}
       run: |
         bin/setup
         bin/rails test
