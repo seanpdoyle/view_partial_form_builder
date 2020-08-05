@@ -26,7 +26,6 @@ module ViewPartialFormBuilder
         text: text,
         options: options,
         block: block,
-        arguments: [method, text],
       }
 
       render_partial("label", locals, fallback: -> { super }, &block)
@@ -38,7 +37,6 @@ module ViewPartialFormBuilder
         options: options,
         checked_value: checked_value,
         unchecked_value: unchecked_value,
-        arguments: [method, options, checked_value, unchecked_value],
       }
 
       render_partial("check_box", locals, fallback: -> { super })
@@ -49,7 +47,6 @@ module ViewPartialFormBuilder
         method: method,
         tag_value: tag_value,
         options: options,
-        arguments: [method, tag_value],
       }
 
       render_partial("radio_button", locals, fallback: -> { super })
@@ -64,7 +61,6 @@ module ViewPartialFormBuilder
         options: options,
         html_options: html_options,
         block: block,
-        arguments: [method, choices, options],
       }
 
       render_partial("select", locals, fallback: -> { super }, &block)
@@ -80,7 +76,6 @@ module ViewPartialFormBuilder
         text_method: text_method,
         options: options,
         html_options: html_options,
-        arguments: [method, collection, value_method, text_method, options],
       }
 
       render_partial("collection_select", locals, fallback: -> { super })
@@ -97,13 +92,6 @@ module ViewPartialFormBuilder
         options: options,
         html_options: html_options,
         block: block,
-        arguments: [
-          method,
-          collection,
-          value_method,
-          text_method,
-          options,
-        ],
       }
 
       render_partial("collection_check_boxes", locals, fallback: -> { super }, &block)
@@ -120,13 +108,6 @@ module ViewPartialFormBuilder
         options: options,
         html_options: html_options,
         block: block,
-        arguments: [
-          method,
-          collection,
-          value_method,
-          text_method,
-          options,
-        ],
       }
 
       render_partial("collection_radio_buttons", locals, fallback: -> { super }, &block)
@@ -144,15 +125,6 @@ module ViewPartialFormBuilder
         option_value_method: option_value_method,
         html_options: html_options,
         options: options,
-        arguments: [
-          method,
-          collection,
-          group_method,
-          group_label_method,
-          option_key_method,
-          option_value_method,
-          options,
-        ],
       }
 
       render_partial("grouped_collection_select", locals, fallback: -> { super })
@@ -166,7 +138,6 @@ module ViewPartialFormBuilder
         priority_zones: priority_zones,
         html_options: html_options,
         options: options,
-        arguments: [method, priority_zones, options],
       }
 
       render_partial("time_zone_select", locals, fallback: -> { super })
@@ -189,7 +160,6 @@ module ViewPartialFormBuilder
       locals = {
         method: method,
         options: options,
-        arguments: [method],
       }
 
       render_partial("hidden_field", locals, fallback: -> { super })
@@ -201,7 +171,6 @@ module ViewPartialFormBuilder
       locals = {
         method: method,
         options: options,
-        arguments: [method],
       }
 
       render_partial("file_field", locals, fallback: -> { super })
@@ -214,7 +183,6 @@ module ViewPartialFormBuilder
       locals = {
         value: value,
         options: options,
-        arguments: [value],
       }
 
       render_partial("submit", locals, fallback: -> { super })
@@ -227,7 +195,6 @@ module ViewPartialFormBuilder
       locals = {
         value: value,
         options: options,
-        arguments: [value],
       }
 
       render_partial("button", locals, fallback: -> { super })
@@ -247,7 +214,6 @@ module ViewPartialFormBuilder
             {
               method: method,
               options: options,
-              arguments: [method],
             },
             fallback: -> { super },
           )
@@ -263,7 +229,7 @@ module ViewPartialFormBuilder
       options_as_locals = objectify_options(options)
       locals = DeprecatedHash.new(
         options_as_locals.merge(locals, form: self),
-        deprecated_keys: options_as_locals.keys + [:arguments],
+        deprecated_keys: options_as_locals.keys,
       )
 
       partial = if partial_override.present?

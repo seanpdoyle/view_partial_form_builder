@@ -8,6 +8,8 @@ version links.
 
 ## main
 
+Remove support for `*arguments` in a view partial.
+
 Remove support for `merge_token_lists`.
 
 ## [0.1.5] - August 06, 2020

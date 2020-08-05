@@ -21,7 +21,7 @@ class ViewPartialFormBuilderTest < FormBuilderTestCase
     HTML
     declare_template "form_builder/_text_field.html.erb", <<~HTML
       <%= form.label(method) %>
-      <%= form.text_field(*arguments, **options) %>
+      <%= form.text_field(method, **options) %>
     HTML
     declare_template "form_builder/_label.html.erb", <<~HTML
       <label>Label from partial</label>
@@ -44,7 +44,7 @@ class ViewPartialFormBuilderTest < FormBuilderTestCase
     HTML
     declare_template "form_builder/_text_field.html.erb", <<~'HTML'
       <%= form.text_field(
-        *arguments,
+        method,
         class: "text-field #{options.delete(:class)}",
         **options,
       ) %>
@@ -268,7 +268,7 @@ class ViewPartialFormBuilderTest < FormBuilderTestCase
       <% end %>
     HTML
     declare_template "form_builder/_text_field.html.erb", <<~HTML
-      <%= form.text_field(*arguments, **options) %>
+      <%= form.text_field(method, **options) %>
     HTML
 
     render(partial: "application/form")
@@ -300,7 +300,7 @@ class ViewPartialFormBuilderTest < FormBuilderTestCase
     HTML
     declare_template "posts/form_builder/_text_field.html.erb", <<~'HTML'
       <%= form.text_field(
-        *arguments,
+        method,
         partial: "form_builder/text_field",
         class: "text--admin-partial #{options.delete(:class)}",
         **options,
@@ -308,7 +308,7 @@ class ViewPartialFormBuilderTest < FormBuilderTestCase
     HTML
     declare_template "form_builder/_text_field.html.erb", <<~'HTML'
       <%= form.text_field(
-        *arguments,
+        method,
         class: "text #{options.delete(:class)}",
         **options,
       ) %>
@@ -327,7 +327,7 @@ class ViewPartialFormBuilderTest < FormBuilderTestCase
     HTML
     declare_template "form_builder/_text_field.html.erb", <<~'HTML'
       <%= form.text_field(
-        *arguments,
+        method,
         partial: "form_builder/text_field",
         class: "text #{options.delete(:class)}",
         **options,
@@ -335,7 +335,7 @@ class ViewPartialFormBuilderTest < FormBuilderTestCase
     HTML
     declare_template "posts/form_builder/_text_field.html.erb", <<~'HTML'
       <%= form.text_field(
-        *arguments,
+        method,
         partial: "form_builder/text_field",
         class: "text--post #{options.delete(:class)}",
         **options,
