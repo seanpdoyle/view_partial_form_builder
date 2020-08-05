@@ -116,7 +116,8 @@ In addition, each view partial receives:
 * `form` - a reference to the instance of `ViewPartialFormBuilder`, which is a
   descendant of [`ActionView::Helpers::FormBuilder`][FormBuilder]
 
-* `&block` - a callable, `yield`-able block if the helper method was passed one
+* `block` - the block if the helper method was passed one. Forward it along to
+  field helpers as `&block`.
 
 #### Handling DOMTokenList attributes
 

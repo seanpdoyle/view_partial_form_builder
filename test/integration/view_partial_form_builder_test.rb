@@ -201,26 +201,6 @@ class ViewPartialFormBuilderTest < FormBuilderTestCase
     assert_select(".post-input")
   end
 
-  test "specifying a partial name" do
-    declare_template "application/_form.html.erb", <<~HTML
-      <%= form_with(model: Post.new) do |form| %>
-        <%= form.text_field :name, partial: "special_posts/text_field" %>
-      <% end %>
-    HTML
-    declare_template "form_builder/_text_field.html.erb", <<~HTML
-      <input type="text" class="application-text-field">
-    HTML
-    declare_template "special_posts/_text_field.html.erb", <<~HTML
-      <p class="partial"><%= local_assigns[:partial] %></p>
-      <input type="text" class="special-post-text-field">
-    HTML
-
-    render(partial: "application/form")
-
-    assert_select(".special-post-text-field")
-    assert_select(".partial", text: "")
-  end
-
   test "exposes a the default helper's arguments and options to template as locals" do
     declare_template "application/_form.html.erb", <<~HTML
       <%= form_with(model: Post.new) do |form| %>
@@ -261,9 +241,8 @@ class ViewPartialFormBuilderTest < FormBuilderTestCase
     declare_template "posts/form_builder/_text_field.html.erb", <<~'HTML'
       <%= form.text_field(
         method,
-        partial: "form_builder/text_field",
-        class: "text--admin-partial #{options.delete(:class)}",
-        **options,
+        class: "text--admin-partial  #{options.delete(:class)}",
+        **options
       ) %>
     HTML
     declare_template "form_builder/_text_field.html.erb", <<~'HTML'

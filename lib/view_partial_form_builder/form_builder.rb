@@ -224,18 +224,9 @@ module ViewPartialFormBuilder
 
     def render_partial(field, locals, fallback:, &block)
       options = objectify_options(locals.fetch(:options, {}))
-      partial_override = options.delete(:partial)
       locals = locals.merge(form: self)
 
-      partial = if partial_override.present?
-        ActiveSupport::Deprecation.new("0.2.0", "ViewPartialFormBuilder").warn(<<~WARNING)
-          Providing a `partial:` option for a form field is deprecated.
-        WARNING
-
-        find_partial(partial_override, locals, prefixes: [])
-      else
-        find_partial(field, locals, prefixes: prefixes_after(field))
-      end
+      partial = find_partial(field, locals, prefixes: prefixes_after(field))
 
       if partial.nil? || about_to_recurse_infinitely?(partial)
         fallback.call

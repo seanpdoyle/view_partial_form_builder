@@ -8,6 +8,9 @@ version links.
 
 ## main
 
+Remove support for `partial:` option to override which partial is to be rendered
+by `ViewPartialFormBuilder::FormBuilder`.
+
 Remove support for declaring option keys as partial-local variables.
 
 Remove support for `*arguments` in a view partial.
