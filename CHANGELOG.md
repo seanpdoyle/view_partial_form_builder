@@ -8,6 +8,11 @@ version links.
 
 ## main
 
+Deprecate the use of `merge_token_lists` to combine attributes that are backed
+by [DOMTokenList][]. It will be removed in the `0.2.0` release.
+
+[DOMTokenList]: https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList
+
 ## [0.1.4] - August 06, 2020
 
 Improve support for `fields_for` and `fields` calls to cascade partial

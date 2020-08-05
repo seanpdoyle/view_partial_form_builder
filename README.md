@@ -158,16 +158,12 @@ When rendering a field's DOMTokenList-backed attributes (like `class` or
 controllers][stimulus-controller]), transforming and combining singular `String`
 instances into lists of token can be very useful.
 
-To simplify those scenarios, a partial's template-local optional attributes are
-made available with the `#merge_token_lists` method.
-
 These optional attributes are available through the `options` or `html_options`
 partial-local variables. Their name will depend on the partial's corresponding
 [`ActionView::Helpers::FormBuilder`][FormBuilder] interface.
 
-Calls to `#merge_token_lists` will merge the key-value pairs and return a new
-Hash-like structure. The attribute's value will be transformed into an `Array`.
-Given call to `form.text_field` and a corresponding partial declaration:
+To "merge" attributes together, you can combine Ruby's `String` interpolation
+and `Hash#delete`:
 
 ```html+erb
   <%# app/views/users/new.html.erb %>
@@ -177,7 +173,11 @@ Given call to `form.text_field` and a corresponding partial declaration:
 
 <# app/views/form_builder/_text_field.html.erb %>
 
-<%= form.text_field(*arguments, **options.merge_token_lists(class: "text-field")) %>
+<%= form.text_field(
+  method,
+  class: "text-field #{options.delete(:class)}",
+  **options
+) %>
 ```
 
 The resulting HTML `<input>` element will merge have its [`class`

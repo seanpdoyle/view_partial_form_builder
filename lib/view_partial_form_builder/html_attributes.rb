@@ -1,5 +1,13 @@
 module ViewPartialFormBuilder
   class HtmlAttributes
+    deprecate merge_token_lists: <<~'WARNING', deprecator: ActiveSupport::Deprecation.new("0.2.0", "ViewPartialFormBuilder")
+
+      As an alternative, merge arguments through String interpolation:
+
+      <%= form.label(method, class: "label #{options.delete(:class)}", **options) %>
+
+    WARNING
+
     def initialize(**attributes)
       @attributes = attributes
     end
