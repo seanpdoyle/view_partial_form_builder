@@ -8,6 +8,10 @@ version links.
 
 ## main
 
+Deprecate support for `*arguments` in a view partial.
+
+It will be removed in the `0.2.0` release.
+
 Deprecate the use of `partial:` to override which partial to be rendered by
 `ViewPartialFormBuilder::FormBuilder`. Instead, rely on Rails' controller and
 ActiveModel partial scope resolution prefixing.

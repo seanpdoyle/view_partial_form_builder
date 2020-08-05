@@ -87,7 +87,7 @@ generating HTML through Rails' helpers:
 <%# app/views/form_builder/_button.html.erb %>
 
 <div class="button-wrapper">
-  <%= form.button(*arguments, **options, &block) %>
+  <%= form.button(value, options, &block) %>
 </div>
 ```
 
@@ -116,30 +116,7 @@ In addition, each view partial receives:
 * `form` - a reference to the instance of `ViewPartialFormBuilder`, which is a
   descendant of [`ActionView::Helpers::FormBuilder`][FormBuilder]
 
-* `arguments` - an Array containing the arguments the helper received, in the
-  order they were received. This can be useful to pass to the view partial's
-  helper by [splatting them][splat] out.
-
 * `&block` - a callable, `yield`-able block if the helper method was passed one
-
-In cases when a [`ActionView::Helpers::FormBuilder` helper
-method][FormBuilder]'s last arguments are options (either `Hash` instances or
-[keyword arguments][]), they're omitted from the `arguments` array.
-
-If you want to pass-through all arguments, options, and block parameters, you
-can splat them out:
-
-```html+erb
-<%# app/views/form_builder/_label.html.erb %>
-
-<%= form.label(*arguments, **options, &block) %>
-```
-
-```html+erb
-<%# app/views/form_builder/_select.html.erb %>
-
-<%= form.select(*arguments, **html_options, &block) %>
-```
 
 #### Handling DOMTokenList attributes
 
@@ -192,7 +169,6 @@ values:
 [button]: https://api.rubyonrails.org/classes/ActionView/Helpers/FormBuilder.html#method-i-button
 [local_assigns]: https://api.rubyonrails.org/classes/ActionView/Template.html#method-i-local_assigns
 [splat]: https://ruby-doc.org/core-2.2.0/doc/syntax/calling_methods_rdoc.html#label-Array+to+Arguments+Conversion
-[keyword arguments]: https://thoughtbot.com/blog/ruby-2-keyword-arguments
 [mdn-class]: https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/class
 [DOMTokenList]: https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList
 [classList]: https://developer.mozilla.org/en-US/docs/Web/API/Element/classList
@@ -210,7 +186,7 @@ block-local `form` variable:
 ```erb
 <%# app/views/users/form_builder/_email_field.html.erb %>
 
-<%= form.default.email_field(*arguments, **options) %>
+<%= form.default.email_field(method, options) %>
 ```
 
 When passing a `model:` or `scope:` to calls to [`form_with`][form_with],
@@ -225,7 +201,7 @@ For example, when calling `form_with(model: User.new)`, a partial declared in
 <%# app/views/users/form_builder/_password_field.html.erb %>
 
 <div class="password-field-wrapper">
-  <%= form.password_field(*arguments, **options) %>
+  <%= form.password_field(method, options) %>
 </div>
 ```
 
@@ -268,8 +244,14 @@ Declare the consumer facing inputs (in this example, `<input type="search">`):
 
 <%= form.search_field(
   method,
-  class: "search-field #{options.delete(:class}",
-  "data-controller": "input->search#executeQuery #{options.delete(:"data-controller")}",
+  class: "
+    search-field
+    #{options.delete(:class}
+  ",
+  "data-controller": "
+    input->search#executeQuery
+    #{options.delete(:"data-controller")}
+  ",
   **options
 ) %>
 ```
@@ -282,8 +264,14 @@ foundation built by the more general definitions:
 
 <%= form.search_field(
   method,
-  class: "search-field--admin #{options.delete(:class}",
-  "data-controller": "focus->admin-search#clearResults #{options.delete(:"data-controller")}",
+  class: "
+    search-field--admin
+    #{options.delete(:class}
+  ",
+  "data-controller": "
+    focus->admin-search#clearResults
+    #{options.delete(:"data-controller")}
+  ",
 ) %>
 ```
 

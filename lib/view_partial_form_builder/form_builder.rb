@@ -261,7 +261,10 @@ module ViewPartialFormBuilder
     def render_partial(field, locals, fallback:, &block)
       options = locals.fetch(:options, {})
       partial_override = options.delete(:partial)
-      locals = objectify_options(options).merge(locals, form: self)
+      locals = DeprecatedHash.new(
+        objectify_options(options).merge(locals, form: self),
+        deprecated_keys: [:arguments],
+      )
 
       partial = if partial_override.present?
         ActiveSupport::Deprecation.new("0.2.0", "ViewPartialFormBuilder").warn(<<~WARNING)
@@ -312,6 +315,24 @@ module ViewPartialFormBuilder
       else
         @template.instance_values["virtual_path"].to_s
       end
+    end
+  end
+
+  class DeprecatedHash < Hash
+    def initialize(hash, deprecated_keys: [])
+      super()
+      merge!(hash)
+      @deprecated_keys = deprecated_keys
+    end
+
+    def [](key)
+      if @deprecated_keys.include?(key)
+        ActiveSupport::Deprecation.new("0.2.0", "ViewPartialFormBuilder").warn <<~WARNING
+          Accessing `#{key}` from partials is deprecated.
+        WARNING
+      end
+
+      super
     end
   end
 end
