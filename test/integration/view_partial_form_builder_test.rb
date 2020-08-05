@@ -42,10 +42,11 @@ class ViewPartialFormBuilderTest < FormBuilderTestCase
     declare_template "posts/_my_text_field.html.erb", <<~HTML
       <%= form.text_field :name, class: "my-partial-text-field" %>
     HTML
-    declare_template "form_builder/_text_field.html.erb", <<~HTML
+    declare_template "form_builder/_text_field.html.erb", <<~'HTML'
       <%= form.text_field(
         *arguments,
-        **options.merge_token_lists(class: "text-field"),
+        class: "text-field #{options.delete(:class)}",
+        **options,
       ) %>
     HTML
 
@@ -291,40 +292,25 @@ class ViewPartialFormBuilderTest < FormBuilderTestCase
     assert_select(":not(.application-text-field)")
   end
 
-  test "passes options as HtmlAttributes instances" do
-    declare_template "application/_form.html.erb", <<~HTML
-      <%= form_with(model: Post.new) do |form| %>
-        <%= form.text_field :name, class: "text--name" %>
-      <% end %>
-    HTML
-    declare_template "form_builder/_text_field.html.erb", <<~HTML
-      <%= form.text_field(*arguments, options.merge_token_lists(
-        class: "text",
-      )) %>
-    HTML
-
-    render(partial: "application/form")
-
-    assert_select(%(input[type="text"][class="text text--name"]))
-  end
-
   test "can delegate to another partial" do
     declare_template "application/_form.html.erb", <<~HTML
       <%= form_with(model: Post.new) do |form| %>
         <%= form.text_field :name, class: "text--form" %>
       <% end %>
     HTML
-    declare_template "posts/form_builder/_text_field.html.erb", <<~HTML
+    declare_template "posts/form_builder/_text_field.html.erb", <<~'HTML'
       <%= form.text_field(
         *arguments,
         partial: "form_builder/text_field",
-        **options.merge_token_lists(class: "text--admin-partial"),
+        class: "text--admin-partial #{options.delete(:class)}",
+        **options,
       ) %>
     HTML
-    declare_template "form_builder/_text_field.html.erb", <<~HTML
+    declare_template "form_builder/_text_field.html.erb", <<~'HTML'
       <%= form.text_field(
         *arguments,
-        **options.merge_token_lists(class: "text"),
+        class: "text #{options.delete(:class)}",
+        **options,
       ) %>
     HTML
 
@@ -339,18 +325,20 @@ class ViewPartialFormBuilderTest < FormBuilderTestCase
         <%= form.text_field :name, class: "text--form" %>
       <% end %>
     HTML
-    declare_template "form_builder/_text_field.html.erb", <<~HTML
+    declare_template "form_builder/_text_field.html.erb", <<~'HTML'
       <%= form.text_field(
         *arguments,
         partial: "form_builder/text_field",
-        **options.merge_token_lists(class: "text"),
+        class: "text #{options.delete(:class)}",
+        **options,
       ) %>
     HTML
-    declare_template "posts/form_builder/_text_field.html.erb", <<~HTML
+    declare_template "posts/form_builder/_text_field.html.erb", <<~'HTML'
       <%= form.text_field(
         *arguments,
         partial: "form_builder/text_field",
-        **options.merge_token_lists(class: "text--post"),
+        class: "text--post #{options.delete(:class)}",
+        **options,
       ) %>
     HTML
 

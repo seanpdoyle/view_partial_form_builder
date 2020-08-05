@@ -87,10 +87,11 @@ class ViewPartialFormBuilderSelectTest < FormBuilderTestCase
       ) %>
     <% end %>
     HTML
-    declare_template "form_builder/_select.html.erb", <<~HTML
+    declare_template "form_builder/_select.html.erb", <<~'HTML'
       <%= form.select(
         *arguments,
-        **html_options.merge_token_lists(class: "select"),
+        class: "select #{html_options.delete(:class)}",
+        **html_options,
         &block
       ) %>
     HTML

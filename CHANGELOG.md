@@ -8,6 +8,8 @@ version links.
 
 ## main
 
+Remove support for `merge_token_lists`.
+
 ## [0.1.5] - August 06, 2020
 
 Deprecate root-level declarations in `app/views/form_builder/` in favor of

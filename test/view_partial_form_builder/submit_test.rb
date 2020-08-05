@@ -19,10 +19,11 @@ class ViewPartialFormBuilderSubmitTest < FormBuilderTestCase
         <%= form.submit("Make Post", class: "my-submit") %>
       <% end %>
     HTML
-    declare_template "form_builder/_submit.html.erb", <<~HTML
+    declare_template "form_builder/_submit.html.erb", <<~'HTML'
       <%= form.default.submit(
         value,
-        **options.merge_token_lists(class: "submit"),
+        class: "submit #{options.delete(:class)}",
+        **options,
       ) %>
     HTML
 

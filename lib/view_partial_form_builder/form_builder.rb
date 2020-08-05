@@ -1,5 +1,4 @@
 require "view_partial_form_builder/lookup_override"
-require "view_partial_form_builder/html_attributes"
 
 module ViewPartialFormBuilder
   class FormBuilder < ActionView::Helpers::FormBuilder
@@ -25,7 +24,7 @@ module ViewPartialFormBuilder
       locals = {
         method: method,
         text: text,
-        options: HtmlAttributes.new(options),
+        options: options,
         block: block,
         arguments: [method, text],
       }
@@ -36,7 +35,7 @@ module ViewPartialFormBuilder
     def check_box(method, options = {}, checked_value = "1", unchecked_value = "0")
       locals = {
         method: method,
-        options: HtmlAttributes.new(options),
+        options: options,
         checked_value: checked_value,
         unchecked_value: unchecked_value,
         arguments: [method, options, checked_value, unchecked_value],
@@ -49,7 +48,7 @@ module ViewPartialFormBuilder
       locals = {
         method: method,
         tag_value: tag_value,
-        options: HtmlAttributes.new(options),
+        options: options,
         arguments: [method, tag_value],
       }
 
@@ -63,7 +62,7 @@ module ViewPartialFormBuilder
         method: method,
         choices: choices,
         options: options,
-        html_options: HtmlAttributes.new(html_options),
+        html_options: html_options,
         block: block,
         arguments: [method, choices, options],
       }
@@ -96,7 +95,7 @@ module ViewPartialFormBuilder
         value_method: value_method,
         text_method: text_method,
         options: options,
-        html_options: HtmlAttributes.new(html_options),
+        html_options: html_options,
         block: block,
         arguments: [
           method,
@@ -119,7 +118,7 @@ module ViewPartialFormBuilder
         value_method: value_method,
         text_method: text_method,
         options: options,
-        html_options: HtmlAttributes.new(html_options),
+        html_options: html_options,
         block: block,
         arguments: [
           method,
@@ -143,7 +142,7 @@ module ViewPartialFormBuilder
         group_label_method: group_label_method,
         option_key_method: option_key_method,
         option_value_method: option_value_method,
-        html_options: HtmlAttributes.new(html_options),
+        html_options: html_options,
         options: options,
         arguments: [
           method,
@@ -165,7 +164,7 @@ module ViewPartialFormBuilder
       locals = {
         method: method,
         priority_zones: priority_zones,
-        html_options: HtmlAttributes.new(html_options),
+        html_options: html_options,
         options: options,
         arguments: [method, priority_zones, options],
       }
@@ -177,7 +176,7 @@ module ViewPartialFormBuilder
       locals = {
         method: method,
         options: options,
-        html_options: HtmlAttributes.new(html_options),
+        html_options: html_options,
         arguments: [method, options, html_options],
       }
 
@@ -189,7 +188,7 @@ module ViewPartialFormBuilder
 
       locals = {
         method: method,
-        options: HtmlAttributes.new(options),
+        options: options,
         arguments: [method],
       }
 
@@ -201,7 +200,7 @@ module ViewPartialFormBuilder
 
       locals = {
         method: method,
-        options: HtmlAttributes.new(options),
+        options: options,
         arguments: [method],
       }
 
@@ -214,7 +213,7 @@ module ViewPartialFormBuilder
 
       locals = {
         value: value,
-        options: HtmlAttributes.new(options),
+        options: options,
         arguments: [value],
       }
 
@@ -227,7 +226,7 @@ module ViewPartialFormBuilder
 
       locals = {
         value: value,
-        options: HtmlAttributes.new(options),
+        options: options,
         arguments: [value],
       }
 
@@ -247,7 +246,7 @@ module ViewPartialFormBuilder
             "#{selector}",
             {
               method: method,
-              options: HtmlAttributes.new(options),
+              options: options,
               arguments: [method],
             },
             fallback: -> { super },
