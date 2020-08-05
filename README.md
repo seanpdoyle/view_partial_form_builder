@@ -229,22 +229,37 @@ For example, when calling `form_with(model: User.new)`, a partial declared in
 </div>
 ```
 
-If you'd like to render a specific partial for a field, you can declare the name
-as the `partial:` option:
+If you'd like to render a specific partial for a field, make sure that you pass
+along the `form:` (along with any other partial-local variables) as part of the
+`render` call's `locals:` option:
+
 
 ```erb
 <%# app/views/users/new.html.erb %>
 
 <%= form_with(model: User.new) do |form| %>
-  <%= form.email_field(:email, partial: "emails/my_special_text_field") %>
+  <%= render("emails/my_special_email_field", {
+    form: form,
+    method: :email,
+    options: { class: "user-email" },
+  ) %>
 <% end %>
+
+<%# app/views/emails/_my_special_email_field.html.erb %>
+
+<%= form.email_field(
+  method,
+  class: "my-special-email #{options.delete(:class)},
+  **options
+) %>
 ```
 
 #### Composing partials
 
-Passing a `partial:` key can be useful for layering partials on top of one
-another. For instance, consider an administrative interface that shares styles
-with a consumer facing site, but has additional bells and whistles.
+Layering partials on top of one another can be useful to share foundational
+styles and configuration across your fields. For instance, consider an
+administrative interface that shares styles with a consumer facing site, but has
+additional bells and whistles.
 
 Declare the consumer facing inputs (in this example, `<input type="search">`):
 
@@ -252,11 +267,10 @@ Declare the consumer facing inputs (in this example, `<input type="search">`):
 <%# app/views/form_builder/_search_field.html.erb %>
 
 <%= form.search_field(
-  *arguments,
-  **options.merge_token_lists(
-    class: "search-field",
-    "data-controller": "input->search#executeQuery",
-  ),
+  method,
+  class: "search-field #{options.delete(:class}",
+  "data-controller": "input->search#executeQuery #{options.delete(:"data-controller")}",
+  **options
 ) %>
 ```
 
@@ -267,12 +281,9 @@ foundation built by the more general definitions:
 <%# app/views/admin/form_builder/_search_field.html.erb %>
 
 <%= form.search_field(
-  *arguments,
-  partial: "form_builder/search_field",
-  **options.merge_token_lists(
-    class: "search-field--admin",
-    "data-controller": "focus->admin-search#clearResults",
-  ),
+  method,
+  class: "search-field--admin #{options.delete(:class}",
+  "data-controller": "focus->admin-search#clearResults #{options.delete(:"data-controller")}",
 ) %>
 ```
 

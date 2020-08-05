@@ -8,6 +8,10 @@ version links.
 
 ## main
 
+Deprecate the use of `partial:` to override which partial to be rendered by
+`ViewPartialFormBuilder::FormBuilder`. Instead, rely on Rails' controller and
+ActiveModel partial scope resolution prefixing.
+
 Deprecate the use of `merge_token_lists` to combine attributes that are backed
 by [DOMTokenList][]. It will be removed in the `0.2.0` release.
 
