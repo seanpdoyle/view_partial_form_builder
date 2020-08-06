@@ -54,6 +54,7 @@ class ViewPartialFormBuilderSelectTest < FormBuilderTestCase
         <%= form.select(
           method,
           choices,
+          {},
           "data-attr": "foo",
           &block
         ) %>
