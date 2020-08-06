@@ -8,6 +8,8 @@ version links.
 
 ## main
 
+## [0.1.5] - August 06, 2020
+
 Deprecate root-level declarations in `app/views/form_builder/` in favor of
 `app/views/application/form_builder/`.
 
