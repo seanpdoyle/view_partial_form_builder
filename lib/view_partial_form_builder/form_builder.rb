@@ -1,5 +1,3 @@
-require "view_partial_form_builder/lookup_override"
-
 module ViewPartialFormBuilder
   class FormBuilder < ActionView::Helpers::FormBuilder
     attr_reader :default
