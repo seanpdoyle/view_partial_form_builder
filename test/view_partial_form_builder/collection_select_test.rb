@@ -32,7 +32,7 @@ class ViewPartialFormBuilderCollectionSelectTest < FormBuilderTestCase
       ) %>
     <% end %>
     HTML
-    declare_template "form_builder/_collection_select.html.erb", <<~HTML
+    declare_template "application/form_builder/_collection_select.html.erb", <<~HTML
       <p id="method"><%= method %></p>
       <p id="collection"><%= collection.first.post_name %></p>
       <p id="value_method"><%= value_method %></p>

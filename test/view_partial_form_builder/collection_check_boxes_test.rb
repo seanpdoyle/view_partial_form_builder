@@ -52,7 +52,7 @@ class ViewPartialFormBuilderCollectionCheckBoxesTest < FormBuilderTestCase
         <% end %>
       <% end %>
     HTML
-    declare_template "form_builder/_collection_check_boxes.html.erb", <<~HTML
+    declare_template "application/form_builder/_collection_check_boxes.html.erb", <<~HTML
       <%= form.collection_check_boxes(
         method,
         collection,

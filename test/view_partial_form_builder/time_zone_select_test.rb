@@ -24,7 +24,7 @@ class ViewPartialFormBuilderTimeZoneSelectTest < FormBuilderTestCase
       ) %>
     <% end %>
     HTML
-    declare_template "form_builder/_time_zone_select.html.erb", <<~HTML
+    declare_template "application/form_builder/_time_zone_select.html.erb", <<~HTML
       <p id="method"><%= method %></p>
       <p id="priority_zones"><%= priority_zones.first %></p>
       <p id="options"><%= options.to_json %></p>

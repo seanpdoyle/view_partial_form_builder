@@ -32,7 +32,7 @@ class Admin::PostsControllerTest < ActionDispatch::IntegrationTest
     declare_template "application/form_builder/_text_field.html.erb", <<~HTML
       <input type="text" class="application-input">
     HTML
-    declare_template "admin/form_builder/_text_field.html.erb", <<~HTML
+    declare_template "admin/application/form_builder/_text_field.html.erb", <<~HTML
       <input type="text" class="admin-input" name="<%= method %>">
     HTML
 

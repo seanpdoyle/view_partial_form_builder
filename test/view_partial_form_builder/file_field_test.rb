@@ -19,7 +19,7 @@ class ViewPartialFormBuilderFileFieldTest < FormBuilderTestCase
         <%= form.file_field(:avatar) %>
       <% end %>
     HTML
-    declare_template "form_builder/_file_field.html.erb", <<~HTML
+    declare_template "application/form_builder/_file_field.html.erb", <<~HTML
       <input type="file" class="custom-file-field">
     HTML
 
@@ -34,7 +34,7 @@ class ViewPartialFormBuilderFileFieldTest < FormBuilderTestCase
         <%= form.file_field(:avatar) %>
       <% end %>
     HTML
-    declare_template "form_builder/_file_field.html.erb", <<~HTML
+    declare_template "application/form_builder/_file_field.html.erb", <<~HTML
       <input type="file">
     HTML
 

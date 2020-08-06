@@ -23,7 +23,7 @@ class ViewPartialFormBuilderDateSelectTest < FormBuilderTestCase
   end
 
   test "renders arguments as local assigns" do
-    declare_template "form_builder/_date_select.html.erb", <<~'HTML'
+    declare_template "application/form_builder/_date_select.html.erb", <<~'HTML'
       <%= form.date_select(
         method,
         options.merge(

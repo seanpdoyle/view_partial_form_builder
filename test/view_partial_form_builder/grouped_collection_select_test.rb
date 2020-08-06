@@ -46,7 +46,7 @@ class ViewPartialFormBuilderGroupedCollectionSelectTest < FormBuilderTestCase
       ) %>
     <% end %>
     HTML
-    declare_template "form_builder/_grouped_collection_select.html.erb", <<~HTML
+    declare_template "application/form_builder/_grouped_collection_select.html.erb", <<~HTML
       <p id="collection_count"><%= collection.count %></p>
       <p id="group_method"><%= group_method %></p>
       <p id="group_label_method"><%= group_label_method %></p>

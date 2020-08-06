@@ -37,7 +37,7 @@ Next, declare view partials that correspond to the [`FormBuilder`][FormBuilder]
 helper method you'd like to have more control over:
 
 ```html+erb
-<%# app/views/form_builder/_text_field.html.erb %>
+<%# app/views/application/form_builder/_text_field.html.erb %>
 
 <input
   type="text"
@@ -48,7 +48,7 @@ helper method you'd like to have more control over:
 <% end %>
 >
 
-<%# app/views/form_builder/_email_field.html.erb %>
+<%# app/views/application/form_builder/_email_field.html.erb %>
 
 <input
   type="email"
@@ -59,7 +59,7 @@ helper method you'd like to have more control over:
 <% end %>
 >
 
-<%# app/views/form_builder/_button.html.erb %>
+<%# app/views/application/form_builder/_button.html.erb %>
 
 <button
   class="button button--primary"
@@ -76,7 +76,7 @@ You'll have local access to the `FormBuilder` instance as the template-local
 generating HTML through Rails' helpers:
 
 ```html+erb
-<%# app/views/form_builder/_email_field.html.erb %>
+<%# app/views/application/form_builder/_email_field.html.erb %>
 
 <div class="email-field-wrapper">
   <%= form.email_field(method, required: true, **options)) %>
@@ -84,7 +84,7 @@ generating HTML through Rails' helpers:
 ```
 
 ```html+erb
-<%# app/views/form_builder/_button.html.erb %>
+<%# app/views/application/form_builder/_button.html.erb %>
 
 <div class="button-wrapper">
   <%= form.button(value, options, &block) %>
@@ -149,7 +149,7 @@ and `Hash#delete`:
   <%= form.text_field(:name, class: "text-field--modifier") %>
 <% end %>
 
-<# app/views/form_builder/_text_field.html.erb %>
+<# app/views/application/form_builder/_text_field.html.erb %>
 
 <%= form.text_field(
   method,
@@ -196,7 +196,7 @@ look up path.
 
 For example, when calling `form_with(model: User.new)`, a partial declared in
 `app/views/users/form_builder/` would take precedent over a partial declared in
-`app/views/form_builder/`.
+`app/views/application/form_builder/`.
 
 ```erb
 <%# app/views/users/form_builder/_password_field.html.erb %>
@@ -241,7 +241,7 @@ additional bells and whistles.
 Declare the consumer facing inputs (in this example, `<input type="search">`):
 
 ```html+erb
-<%# app/views/form_builder/_search_field.html.erb %>
+<%# app/views/application/form_builder/_search_field.html.erb %>
 
 <%= form.search_field(
   method,
@@ -261,7 +261,7 @@ Then, declare the administrative interface's inputs, in terms of overriding the
 foundation built by the more general definitions:
 
 ```html+erb
-<%# app/views/admin/form_builder/_search_field.html.erb %>
+<%# app/views/admin/application/form_builder/_search_field.html.erb %>
 
 <%= form.search_field(
   method,
@@ -276,8 +276,8 @@ foundation built by the more general definitions:
 ) %>
 ```
 
-The rendered `admin/form_builder/search_field` partial combines options and
-arguments from both partials:
+The rendered `admin/application/form_builder/search_field` partial combines
+options and arguments from both partials:
 
 ```html
 <input
@@ -327,7 +327,7 @@ Models declared within modules will be delimited with `/`. For example,
 ### Configuration
 
 View partials lookup and resolution will be scoped to the
-`app/views/form_builder` directory.
+`app/views/application/form_builder` directory.
 
 To override this destination to another directory (for example,
 `app/views/fields`, or `app/views/users/fields`), set

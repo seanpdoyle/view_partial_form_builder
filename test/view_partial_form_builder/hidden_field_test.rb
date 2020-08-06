@@ -19,7 +19,7 @@ class ViewPartialFormBuilderHiddenFieldTest < FormBuilderTestCase
         <%= form.hidden_field(:name) %>
       <% end %>
     HTML
-    declare_template "form_builder/_hidden_field.html.erb", <<~HTML
+    declare_template "application/form_builder/_hidden_field.html.erb", <<~HTML
       <input type="hidden" name="<%= method %>" hidden>
     HTML
 

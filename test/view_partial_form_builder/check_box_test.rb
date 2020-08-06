@@ -19,7 +19,7 @@ class ViewPartialFormBuilderCheckBoxTest < FormBuilderTestCase
         <%= form.check_box(:published) %>
       <% end %>
     HTML
-    declare_template "form_builder/_check_box.html.erb", <<~HTML
+    declare_template "application/form_builder/_check_box.html.erb", <<~HTML
       <div class="wrapper">
         <%= form.check_box(method) %>
       </div>
@@ -36,7 +36,7 @@ class ViewPartialFormBuilderCheckBoxTest < FormBuilderTestCase
         <%= form.check_box(:name, class: "name-check_box") %>
       <% end %>
     HTML
-    declare_template "form_builder/_check_box.html.erb", <<~HTML
+    declare_template "application/form_builder/_check_box.html.erb", <<~HTML
       <% class_names = Array(options.delete(:class)) %>
 
       <%= form.check_box(method, class: ["my-checkbox"] + class_names) %>
@@ -53,7 +53,7 @@ class ViewPartialFormBuilderCheckBoxTest < FormBuilderTestCase
         <%= form.check_box(:name, {}, "true", "false") %>
       <% end %>
     HTML
-    declare_template "form_builder/_check_box.html.erb", <<~HTML
+    declare_template "application/form_builder/_check_box.html.erb", <<~HTML
       <div class="wrapper">
         <%= form.check_box(method, {}, checked_value, unchecked_value) %>
       </div>

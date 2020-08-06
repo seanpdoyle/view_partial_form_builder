@@ -19,11 +19,11 @@ class ViewPartialFormBuilderTest < FormBuilderTestCase
         <%= form.text_field :name, class: "name-field" %>
       <% end %>
     HTML
-    declare_template "form_builder/_text_field.html.erb", <<~HTML
+    declare_template "application/form_builder/_text_field.html.erb", <<~HTML
       <%= form.label(method) %>
       <%= form.text_field(method, **options) %>
     HTML
-    declare_template "form_builder/_label.html.erb", <<~HTML
+    declare_template "application/form_builder/_label.html.erb", <<~HTML
       <label>Label from partial</label>
     HTML
 
@@ -42,7 +42,7 @@ class ViewPartialFormBuilderTest < FormBuilderTestCase
     declare_template "posts/_my_text_field.html.erb", <<~HTML
       <%= form.text_field :name, class: "my-partial-text-field" %>
     HTML
-    declare_template "form_builder/_text_field.html.erb", <<~'HTML'
+    declare_template "application/form_builder/_text_field.html.erb", <<~'HTML'
       <%= form.text_field(
         method,
         class: "text-field #{options.delete(:class)}",
@@ -61,7 +61,7 @@ class ViewPartialFormBuilderTest < FormBuilderTestCase
         <%= form.text_field :name %>
       <% end %>
     HTML
-    declare_template "form_builder/_text_field.html.erb", <<~HTML
+    declare_template "application/form_builder/_text_field.html.erb", <<~HTML
       <input type="text" class="application-input">
     HTML
     declare_template "posts/form_builder/_text_field.html.erb", <<~HTML
@@ -94,7 +94,7 @@ class ViewPartialFormBuilderTest < FormBuilderTestCase
         <%= form.text_field :name %>
       <% end %>
     HTML
-    declare_template "form_builder/_text_field.html.erb", <<~HTML
+    declare_template "application/form_builder/_text_field.html.erb", <<~HTML
       <input type="text" class="application-input">
     HTML
 
@@ -109,7 +109,7 @@ class ViewPartialFormBuilderTest < FormBuilderTestCase
         <%= form.text_field :name %>
       <% end %>
     HTML
-    declare_template "form_builder/_text_field.html.erb", <<~HTML
+    declare_template "application/form_builder/_text_field.html.erb", <<~HTML
       <input type="text" class="application-input">
     HTML
 
@@ -143,7 +143,7 @@ class ViewPartialFormBuilderTest < FormBuilderTestCase
     declare_template "posts/form_builder/_text_field.html.erb", <<~HTML
       <%= form.text_field(:name, class: "post-input") %>
     HTML
-    declare_template "form_builder/_label.html.erb", <<~HTML
+    declare_template "application/form_builder/_label.html.erb", <<~HTML
       <%= form.label(method, text, class: "post-label") %>
     HTML
 
@@ -192,7 +192,7 @@ class ViewPartialFormBuilderTest < FormBuilderTestCase
         <%= form.text_field :name, class: "post-input" %>
       <% end %>
     HTML
-    declare_template "form_builder/_text_field.html.erb", <<~HTML
+    declare_template "application/form_builder/_text_field.html.erb", <<~HTML
       <%= form.text_field(method, options) %>
     HTML
 
@@ -207,7 +207,7 @@ class ViewPartialFormBuilderTest < FormBuilderTestCase
         <%= form.text_field :name, value: "splat!" %>
       <% end %>
     HTML
-    declare_template "form_builder/_text_field.html.erb", <<~HTML
+    declare_template "application/form_builder/_text_field.html.erb", <<~HTML
       <%= form.text_field(method, **options) %>
     HTML
 
@@ -222,7 +222,7 @@ class ViewPartialFormBuilderTest < FormBuilderTestCase
         <%= form.default.text_field :name, class: "default-text-field" %>
       <% end %>
     HTML
-    declare_template "form_builder/_text_field.html.erb", <<~HTML
+    declare_template "application/form_builder/_text_field.html.erb", <<~HTML
       <input type="text" class="application-text-field">
     HTML
 
@@ -245,7 +245,7 @@ class ViewPartialFormBuilderTest < FormBuilderTestCase
         **options
       ) %>
     HTML
-    declare_template "form_builder/_text_field.html.erb", <<~'HTML'
+    declare_template "application/form_builder/_text_field.html.erb", <<~'HTML'
       <%= form.text_field(
         method,
         class: "text #{options.delete(:class)}",
@@ -264,10 +264,10 @@ class ViewPartialFormBuilderTest < FormBuilderTestCase
         <%= form.text_field :name, class: "text--form" %>
       <% end %>
     HTML
-    declare_template "form_builder/_text_field.html.erb", <<~'HTML'
+    declare_template "application/form_builder/_text_field.html.erb", <<~'HTML'
       <%= form.text_field(
         method,
-        partial: "form_builder/text_field",
+        partial: "application/form_builder/text_field",
         class: "text #{options.delete(:class)}",
         **options,
       ) %>
@@ -275,7 +275,7 @@ class ViewPartialFormBuilderTest < FormBuilderTestCase
     declare_template "posts/form_builder/_text_field.html.erb", <<~'HTML'
       <%= form.text_field(
         method,
-        partial: "form_builder/text_field",
+        partial: "application/form_builder/text_field",
         class: "text--post #{options.delete(:class)}",
         **options,
       ) %>
@@ -302,7 +302,7 @@ class ConfiguredViewPartialFormBuilderTest < FormBuilderTestCase
         <%= form.text_field :name %>
       <% end %>
     HTML
-    declare_template "my_forms/_text_field.html.erb", <<~HTML
+    declare_template "application/my_forms/_text_field.html.erb", <<~HTML
       <input type="text" class="my-input">
     HTML
 

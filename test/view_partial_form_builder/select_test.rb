@@ -39,7 +39,7 @@ class ViewPartialFormBuilderSelectTest < FormBuilderTestCase
       ) %>
     <% end %>
     HTML
-    declare_template "form_builder/_select.html.erb", <<~HTML
+    declare_template "application/form_builder/_select.html.erb", <<~HTML
       <p id="method"><%= method %></p>
       <p id="choices"><%= choices.to_json %></p>
       <p id="options"><%= options.to_json %></p>
@@ -63,7 +63,7 @@ class ViewPartialFormBuilderSelectTest < FormBuilderTestCase
       <% end %>
     <% end %>
     HTML
-    declare_template "form_builder/_select.html.erb", <<~HTML
+    declare_template "application/form_builder/_select.html.erb", <<~HTML
       <%= form.select(method) do %>
         <%= yield %>
       <% end %>
@@ -87,7 +87,7 @@ class ViewPartialFormBuilderSelectTest < FormBuilderTestCase
       ) %>
     <% end %>
     HTML
-    declare_template "form_builder/_select.html.erb", <<~'HTML'
+    declare_template "application/form_builder/_select.html.erb", <<~'HTML'
       <%= form.select(
         method,
         choices,

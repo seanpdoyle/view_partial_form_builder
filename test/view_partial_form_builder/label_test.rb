@@ -33,7 +33,7 @@ class ViewPartialFormBuilderLabelTest < FormBuilderTestCase
         <%= form.label(:name, class: "name-label") %>
       <% end %>
     HTML
-    declare_template "form_builder/_label.html.erb", <<~HTML
+    declare_template "application/form_builder/_label.html.erb", <<~HTML
       <% class_names = Array(options.delete(:class)) %>
 
       <%= form.default.label(method, class: ["my-label"] + class_names) %>
@@ -50,7 +50,7 @@ class ViewPartialFormBuilderLabelTest < FormBuilderTestCase
         <%= form.label(:name, class: "post-label", required: true) %>
       <% end %>
     HTML
-    declare_template "form_builder/_label.html.erb", <<~HTML
+    declare_template "application/form_builder/_label.html.erb", <<~HTML
       <% required = options.delete(:required) %>
 
       <%= form.label(method, options) %>
@@ -73,7 +73,7 @@ class ViewPartialFormBuilderLabelTest < FormBuilderTestCase
         <% end %>
       <% end %>
     HTML
-    declare_template "form_builder/_label.html.erb", <<~HTML
+    declare_template "application/form_builder/_label.html.erb", <<~HTML
       <%= form.label(method, &block) %>
     HTML
 
@@ -90,7 +90,7 @@ class ViewPartialFormBuilderLabelTest < FormBuilderTestCase
         <% end %>
       <% end %>
     HTML
-    declare_template "form_builder/_label.html.erb", <<~HTML
+    declare_template "application/form_builder/_label.html.erb", <<~HTML
       <%= form.label(method, **options, &block) %>
     HTML
 

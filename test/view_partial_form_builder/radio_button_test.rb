@@ -19,7 +19,7 @@ class ViewPartialFormBuilderRadioButtonTest < FormBuilderTestCase
         <%= form.radio_button(:name, "New", class: "name-radio_button") %>
       <% end %>
     HTML
-    declare_template "form_builder/_radio_button.html.erb", <<~HTML
+    declare_template "application/form_builder/_radio_button.html.erb", <<~HTML
       <% class_names = Array(options.delete(:class)) %>
 
       <%= form.radio_button(method, tag_value, class: ["my-radio"] + class_names) %>
@@ -37,7 +37,7 @@ class ViewPartialFormBuilderRadioButtonTest < FormBuilderTestCase
         <%= form.radio_button(:name, "Old") %>
       <% end %>
     HTML
-    declare_template "form_builder/_radio_button.html.erb", <<~HTML
+    declare_template "application/form_builder/_radio_button.html.erb", <<~HTML
       <div class="wrapper">
         <%= form.radio_button(method, tag_value) %>
       </div>

@@ -52,7 +52,7 @@ class ViewPartialFormBuilderCollectionRadioButtonsTest < FormBuilderTestCase
         <% end %>
       <% end %>
     HTML
-    declare_template "form_builder/_collection_radio_buttons.html.erb", <<~HTML
+    declare_template "application/form_builder/_collection_radio_buttons.html.erb", <<~HTML
       <%= form.collection_radio_buttons(
         method,
         collection,

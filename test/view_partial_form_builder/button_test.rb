@@ -19,7 +19,7 @@ class ViewPartialFormBuilderButtonTest < FormBuilderTestCase
         <%= form.button("Make Post", class: "button") %>
       <% end %>
     HTML
-    declare_template "form_builder/_button.html.erb", <<~HTML
+    declare_template "application/form_builder/_button.html.erb", <<~HTML
       <% class_names = Array(options.delete(:class)) %>
 
       <%= form.button(value, class: (["my-button"] + class_names)) %>
@@ -36,7 +36,7 @@ class ViewPartialFormBuilderButtonTest < FormBuilderTestCase
         <%= form.button("Make Post") %>
       <% end %>
     HTML
-    declare_template "form_builder/_button.html.erb", <<~HTML
+    declare_template "application/form_builder/_button.html.erb", <<~HTML
       <button class="custom"><%= value %></button>
     HTML
 
@@ -51,7 +51,7 @@ class ViewPartialFormBuilderButtonTest < FormBuilderTestCase
         <%= form.button %>
       <% end %>
     HTML
-    declare_template "form_builder/_button.html.erb", <<~HTML
+    declare_template "application/form_builder/_button.html.erb", <<~HTML
       <button class="custom"><%= value %></button>
     HTML
 
@@ -69,7 +69,7 @@ class ViewPartialFormBuilderButtonTest < FormBuilderTestCase
         <%= form.button %>
       <% end %>
     HTML
-    declare_template "form_builder/_button.html.erb", <<~HTML
+    declare_template "application/form_builder/_button.html.erb", <<~HTML
       <button type="button" class="my-button"><%= value %></button>
     HTML
 

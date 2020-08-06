@@ -25,7 +25,7 @@ class ViewPartialFormBuilderRichTextAreaTest < FormBuilderTestCase
         <%= form.rich_text_area(:avatar) %>
       <% end %>
     HTML
-    declare_template "form_builder/_rich_text_area.html.erb", <<~HTML
+    declare_template "application/form_builder/_rich_text_area.html.erb", <<~HTML
       <div class="wrapper">
         <%= form.rich_text_area(method, options) %>
       </div>

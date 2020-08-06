@@ -19,7 +19,7 @@ class ViewPartialFormBuilderSubmitTest < FormBuilderTestCase
         <%= form.submit("Make Post", class: "my-submit") %>
       <% end %>
     HTML
-    declare_template "form_builder/_submit.html.erb", <<~'HTML'
+    declare_template "application/form_builder/_submit.html.erb", <<~'HTML'
       <%= form.default.submit(
         value,
         class: "submit #{options.delete(:class)}",
@@ -38,7 +38,7 @@ class ViewPartialFormBuilderSubmitTest < FormBuilderTestCase
         <%= form.submit("Make Post") %>
       <% end %>
     HTML
-    declare_template "form_builder/_submit.html.erb", <<~HTML
+    declare_template "application/form_builder/_submit.html.erb", <<~HTML
       <button type="submit" class="my-button"><%= value %></button>
     HTML
 
@@ -53,7 +53,7 @@ class ViewPartialFormBuilderSubmitTest < FormBuilderTestCase
         <%= form.submit %>
       <% end %>
     HTML
-    declare_template "form_builder/_submit.html.erb", <<~HTML
+    declare_template "application/form_builder/_submit.html.erb", <<~HTML
       <button type="submit" class="my-button"><%= value %></button>
     HTML
 
@@ -71,7 +71,7 @@ class ViewPartialFormBuilderSubmitTest < FormBuilderTestCase
         <%= form.submit %>
       <% end %>
     HTML
-    declare_template "form_builder/_submit.html.erb", <<~HTML
+    declare_template "application/form_builder/_submit.html.erb", <<~HTML
       <button type="submit" class="my-button"><%= value %></button>
     HTML
 

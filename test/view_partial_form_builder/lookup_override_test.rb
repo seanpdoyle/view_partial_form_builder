@@ -13,12 +13,12 @@ module ViewPartialFormBuilder
 
       *rest, root = lookup_context.prefixes
 
-      assert_equal "application", root
-      assert_includes rest, "posts"
+      assert_equal "application/forms", root
+      assert_includes rest, "posts/forms"
     end
 
     test "#prefixes ensures the list of prefixes descends in specificity" do
-      prefixes =["admin/users", "users", "application"]
+      prefixes = ["admin/users", "admin/application", "users", "application"]
       lookup_context = LookupOverride.new(
         prefixes: prefixes,
         object_name: "user",
@@ -28,13 +28,9 @@ module ViewPartialFormBuilder
       assert_equal(
         [
           "admin/users/form_builder",
-          "admin/form_builder",
-          "admin/users",
+          "admin/application/form_builder",
           "users/form_builder",
-          "users",
-          "form_builder",
           "application/form_builder",
-          "application",
         ],
         lookup_context.prefixes,
       )

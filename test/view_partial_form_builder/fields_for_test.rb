@@ -23,7 +23,7 @@ class FieldsForTest < FormBuilderTestCase
         <% end %>
       <% end %>
     HTML
-    declare_template "form_builder/_text_field.html.erb", <<~HTML
+    declare_template "application/form_builder/_text_field.html.erb", <<~HTML
       <p><%= method %></p>
     HTML
 
@@ -60,7 +60,7 @@ class FieldsForTest < FormBuilderTestCase
         <% end %>
       <% end %>
     HTML
-    declare_template "form_builder/_text_field.html.erb", <<~HTML
+    declare_template "application/form_builder/_text_field.html.erb", <<~HTML
       <p><%= method %></p>
     HTML
 

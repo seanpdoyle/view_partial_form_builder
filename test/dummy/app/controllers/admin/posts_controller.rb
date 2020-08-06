@@ -1,4 +1,4 @@
 module Admin
-  class PostsController < ApplicationController
+  class PostsController < Admin::ApplicationController
   end
 end
