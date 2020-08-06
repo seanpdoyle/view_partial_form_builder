@@ -16,7 +16,7 @@ module ViewPartialFormBuilder
       )
       @lookup_override = LookupOverride.new(
         prefixes: @template.lookup_context.prefixes,
-        object_name: @object_name,
+        object_name: object&.model_name || object_name,
         view_partial_directory: ViewPartialFormBuilder.view_partial_directory,
       )
     end

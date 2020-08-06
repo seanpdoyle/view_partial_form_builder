@@ -293,6 +293,37 @@ arguments from both partials:
 >
 ```
 
+When constructing fields within a `form_with(model: ...)` block, partials will
+use the `model:` instance's [`tableize`-d model name][tableize] to resolve
+partials.
+
+For example, `posts/form_builder/_text_field.html.erb` will be resolved ahead of
+`form_builder/_text_field.html.erb`:
+
+```html+erb
+<%# app/views/posts/form_builder/_text_field.html.erb %>
+
+<%= form.text_field(method, class: "post-text #{options.delete(:class)}", **options) %>
+
+<%# app/views/application/form_builder/_text_field.html.erb %>
+
+<%= form.text_field(method, class: "text #{options.delete(:class)}", **options) %>
+```
+
+The rendered `posts/form_builder/text_field` partial could combine options and
+arguments from both partials:
+
+```html
+<input type="text" class="post-text text">
+```
+
+Models declared within modules will be delimited with `/`. For example,
+`Special::Post` instances would first resolve partials within the
+`app/views/special/posts/form_builder` directory, before falling back to
+`app/views/application/form_builder`.
+
+[tableize]: https://api.rubyonrails.org/classes/String.html#method-i-tableize
+
 ### Configuration
 
 View partials lookup and resolution will be scoped to the

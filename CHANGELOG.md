@@ -8,6 +8,9 @@ version links.
 
 ## main
 
+Improve support for `fields_for` and `fields` calls to cascade partial
+resolution from most-specific to most-general.
+
 ## [0.1.3] - August 05, 2020
 
 Add missing support for `date_select` method.

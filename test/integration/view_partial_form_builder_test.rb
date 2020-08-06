@@ -152,6 +152,24 @@ class ViewPartialFormBuilderTest < FormBuilderTestCase
     assert_select "label.post-label", text: "Not Name!"
   end
 
+  test "cascade partials from most-specific to most-general" do
+    declare_template "special/posts/form_builder/_text_field.html.erb", <<~'HTML'
+      <%= form.text_field(method, class: "special-text #{options.delete(:class)}") %>
+    HTML
+    declare_template "application/form_builder/_text_field.html.erb", <<~'HTML'
+      <%= form.text_field(method, class: "text #{options.delete(:class)}") %>
+    HTML
+    special_post = Special::Post.new(name: "A Special Post")
+
+    render(locals: {post: special_post}, inline: <<~HTML)
+      <%= form_with(model: post, url: "#") do |form| %>
+        <%= form.text_field(:name, class: "name-text") %>
+      <% end %>
+    HTML
+
+    assert_select %(input[class~="special-text"][class~="text"][class~="name-text"]), value: special_post.name
+  end
+
   test "within a model-related directory, look for model-specific partials" do
     declare_template "posts/_form.html.erb", <<~HTML
       <%= form_with(model: Post.new) do |form| %>

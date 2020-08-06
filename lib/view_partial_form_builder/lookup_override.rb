@@ -1,7 +1,7 @@
 module ViewPartialFormBuilder
   class LookupOverride
     def initialize(prefixes:, object_name:, view_partial_directory:)
-      @object_name = object_name.to_s.pluralize
+      @object_name = object_name.to_s.tableize
       @prefixes = prefixes
       @view_partial_directory = view_partial_directory
     end
