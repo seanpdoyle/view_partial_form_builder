@@ -8,6 +8,10 @@ version links.
 
 ## main
 
+Add missing support for `date_select` method.
+
+[date_select]: https://api.rubyonrails.org/classes/ActionView/Helpers/FormBuilder.html#method-i-date_select
+
 Use [ActionView::Template][] instances to render templates instead of
 [ActionView::Helpers::RenderingHelper][]-provided `render()` method.
 

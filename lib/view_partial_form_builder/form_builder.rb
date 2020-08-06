@@ -173,6 +173,17 @@ module ViewPartialFormBuilder
       render_partial("time_zone_select", locals, fallback: -> { super })
     end
 
+    def date_select(method, options = {}, **html_options)
+      locals = {
+        method: method,
+        options: options,
+        html_options: HtmlAttributes.new(html_options),
+        arguments: [method, options, html_options],
+      }
+
+      render_partial("date_select", locals, fallback: -> { super })
+    end
+
     def hidden_field(method, **options)
       @emitted_hidden_id = true if method == :id
 
