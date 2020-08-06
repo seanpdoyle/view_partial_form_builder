@@ -292,7 +292,15 @@ module ViewPartialFormBuilder
         prefixes,
         template_is_partial,
         locals.keys,
-      ).first
+      ).first.tap do |partial|
+        root_directory = ViewPartialFormBuilder.view_partial_directory
+
+        if partial&.virtual_path == "#{root_directory}/_#{template_name}"
+          ActiveSupport::Deprecation.new("0.2.0", "ViewPartialFormBuilder").warn(<<~WARNING.strip)
+            Declare root-level partials in app/views/application/#{root_directory}/, not app/views/#{root_directory}/.
+          WARNING
+        end
+      end
     end
 
     def prefixes_after(template_name)

@@ -8,6 +8,9 @@ version links.
 
 ## main
 
+Deprecate root-level declarations in `app/views/form_builder/` in favor of
+`app/views/application/form_builder/`.
+
 Deprecate support for declaring options keys as partial-local variables.
 It will be removed in the `0.2.0` release.
 
