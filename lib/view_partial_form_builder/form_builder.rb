@@ -261,9 +261,10 @@ module ViewPartialFormBuilder
     def render_partial(field, locals, fallback:, &block)
       options = locals.fetch(:options, {})
       partial_override = options.delete(:partial)
+      options_as_locals = objectify_options(options)
       locals = DeprecatedHash.new(
-        objectify_options(options).merge(locals, form: self),
-        deprecated_keys: [:arguments],
+        options_as_locals.merge(locals, form: self),
+        deprecated_keys: options_as_locals.keys + [:arguments],
       )
 
       partial = if partial_override.present?
