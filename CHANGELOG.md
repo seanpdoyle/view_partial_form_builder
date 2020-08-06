@@ -6,7 +6,13 @@ version links.
 
 [commits]: https://github.com/seanpdoyle/view_partial_form_builder/commits/master
 
-## master
+## main
+
+Use [ActionView::Template][] instances to render templates instead of
+[ActionView::Helpers::RenderingHelper][]-provided `render()` method.
+
+[ActionView::Template]: https://api.rubyonrails.org/classes/ActionView/Template.html
+[ActionView::Helpers::RenderingHelper]: https://api.rubyonrails.org/classes/ActionView/Helpers/RenderingHelper.html#method-i-render
 
 ## [0.1.2] - April 16, 2020
 

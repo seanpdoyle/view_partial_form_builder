@@ -74,9 +74,7 @@ class ViewPartialFormBuilderLabelTest < FormBuilderTestCase
       <% end %>
     HTML
     declare_template "form_builder/_label.html.erb", <<~HTML
-      <%= form.label(method) do %>
-        <%= yield %>
-      <% end %>
+      <%= form.label(method, &block) %>
     HTML
 
     render(partial: "application/form")

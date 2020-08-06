@@ -1,4 +1,4 @@
-require "view_partial_form_builder/lookup_context"
+require "view_partial_form_builder/lookup_override"
 require "view_partial_form_builder/html_attributes"
 
 module ViewPartialFormBuilder
@@ -14,9 +14,9 @@ module ViewPartialFormBuilder
         @template,
         options,
       )
-      @lookup_context = LookupContext.new(
-        overridden_context: @template.lookup_context,
-        object_name: object_name,
+      @lookup_override = LookupOverride.new(
+        prefixes: @template.lookup_context.prefixes,
+        object_name: @object_name,
         view_partial_directory: ViewPartialFormBuilder.view_partial_directory,
       )
     end
@@ -247,55 +247,55 @@ module ViewPartialFormBuilder
 
     private
 
-    attr_reader :lookup_context
-
     def render_partial(field, locals, fallback:, &block)
       options = locals.fetch(:options, {})
       partial_override = options.delete(:partial)
+      locals = objectify_options(options).merge(locals, form: self)
 
-      if about_to_recurse_infinitely?(field, partial_override)
+      partial = if partial_override.present?
+        find_partial(partial_override, locals, prefixes: [])
+      else
+        find_partial(field, locals, prefixes: prefixes_after(field))
+      end
+
+      if partial.nil? || about_to_recurse_infinitely?(partial)
         fallback.call
       else
-        locals = objectify_options(options).merge(locals, form: self)
-
-        lookup_context.override do
-          if partial_override.present?
-            render(partial_override, locals, &block)
-          elsif partial_exists?(field)
-            render(field, locals, &block)
-          else
-            fallback.call
-          end
-        end
+        partial.render(@template, locals, &block)
       end
     end
 
-    def partial_exists?(template_name)
+    def find_partial(template_name, locals, prefixes:)
       template_is_partial = true
 
-      lookup_context.template_exists?(
+      @template.lookup_context.find_all(
         template_name,
-        lookup_context.prefixes,
+        prefixes,
         template_is_partial,
-      )
+        locals.keys,
+      ).first
     end
 
-    def render(partial_name, locals, &block)
-      if block.present?
-        @template.render(layout: partial_name, locals: locals, &block)
+    def prefixes_after(template_name)
+      prefixes = @lookup_override.prefixes
+      current_prefix = current_virtual_path.delete_suffix("/_#{template_name}")
+
+      if prefixes.include?(current_prefix)
+        prefixes.from(prefixes.index(current_prefix).to_i + 1)
       else
-        @template.render(partial: partial_name, locals: locals)
+        prefixes
       end
     end
 
-    def about_to_recurse_infinitely?(field, partial_override)
-      @template.instance_eval do
-        partial_name = "/#{field}"
-        current_partial = @virtual_path.gsub("/_", "/")
-        currently_rendering_field = current_partial.end_with?(partial_name)
+    def about_to_recurse_infinitely?(partial)
+      partial.virtual_path == current_virtual_path
+    end
 
-        return true if currently_rendering_field && partial_override.nil?
-        return true if currently_rendering_field && partial_override == current_partial
+    def current_virtual_path
+      if (current_template = @template.instance_values["current_template"])
+        current_template.virtual_path.to_s
+      else
+        @template.instance_values["virtual_path"].to_s
       end
     end
   end

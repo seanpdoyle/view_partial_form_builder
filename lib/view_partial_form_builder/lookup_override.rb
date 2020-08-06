@@ -1,29 +1,12 @@
 module ViewPartialFormBuilder
-  class LookupContext
-    delegate_missing_to :overridden_context
-
-    def initialize(overridden_context:, object_name:, view_partial_directory:)
+  class LookupOverride
+    def initialize(prefixes:, object_name:, view_partial_directory:)
       @object_name = object_name.to_s.pluralize
-      @overridden_context = overridden_context
-      @prefixes = overridden_context.prefixes.dup.freeze
+      @prefixes = prefixes
       @view_partial_directory = view_partial_directory
     end
 
-    def override(&block)
-      previous_prefixes = overridden_context.prefixes
-
-      overridden_context.prefixes = prefix_overrides
-
-      yield
-    ensure
-      overridden_context.prefixes = previous_prefixes
-    end
-
-    private
-
-    attr_reader :overridden_context, :object_name, :view_partial_directory
-
-    def prefix_overrides
+    def prefixes
       *overridden_prefixes, root_prefix = @prefixes.dup
 
       prefixes = [
@@ -49,5 +32,9 @@ module ViewPartialFormBuilder
 
       prefixes.uniq
     end
+
+    private
+
+    attr_reader :object_name, :view_partial_directory
   end
 end
