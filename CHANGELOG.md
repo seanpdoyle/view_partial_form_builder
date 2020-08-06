@@ -8,6 +8,8 @@ version links.
 
 ## main
 
+## [0.1.3] - August 05, 2020
+
 Add missing support for `date_select` method.
 
 [date_select]: https://api.rubyonrails.org/classes/ActionView/Helpers/FormBuilder.html#method-i-date_select
