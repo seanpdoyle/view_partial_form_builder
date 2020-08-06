@@ -8,6 +8,8 @@ version links.
 
 ## main
 
+Remove support for declaring option keys as partial-local variables.
+
 Remove support for `*arguments` in a view partial.
 
 Remove support for `merge_token_lists`.

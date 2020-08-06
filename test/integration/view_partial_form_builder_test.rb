@@ -186,46 +186,6 @@ class ViewPartialFormBuilderTest < FormBuilderTestCase
     assert_select(".post-input")
   end
 
-  test "interpolates local variables from the arguments into model-specific partial" do
-    post = Post.new(name: "custom value")
-    declare_template "posts/_form.html.erb", <<~HTML
-      <%= form_with(model: post) do |form| %>
-        <%= form.text_field :name %>
-      <% end %>
-    HTML
-    declare_template "posts/form_builder/_text_field.html.erb", <<~HTML
-      <input
-        type="text"
-        class="<%= form.object_name %>-input"
-        value="<%= object.name %>"
-      >
-    HTML
-
-    render(partial: "posts/form", locals: { post: post })
-
-    assert_select %([class="post-input"][value="#{post.name}"])
-  end
-
-  test "interpolates local variables from the arguments into fallback partial" do
-    post = Post.new(name: "custom value")
-    declare_template "application/_form.html.erb", <<~HTML
-      <%= form_with(model: post) do |form| %>
-        <%= form.text_field :name %>
-      <% end %>
-    HTML
-    declare_template "form_builder/_text_field.html.erb", <<~HTML
-      <input
-        type="text"
-        class="<%= form.object_name %>-input"
-        value="<%= object.name %>"
-      >
-    HTML
-
-    render(partial: "application/form", locals: { post: post })
-
-    assert_select %([class="post-input"][value="#{post.name}"])
-  end
-
   test "interpolates `options` variable" do
     declare_template "application/_form.html.erb", <<~HTML
       <%= form_with(model: Post.new) do |form| %>
