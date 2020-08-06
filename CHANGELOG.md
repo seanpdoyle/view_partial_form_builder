@@ -8,6 +8,8 @@ version links.
 
 ## main
 
+## [0.1.4] - August 06, 2020
+
 Improve support for `fields_for` and `fields` calls to cascade partial
 resolution from most-specific to most-general.
 
