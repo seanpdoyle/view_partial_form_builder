@@ -16,11 +16,7 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
-  spec.add_dependency "actionview", ">= 4.0.0"
-  spec.add_dependency "railties", ">= 4.0.0"
+  spec.add_dependency "actionview"
+  spec.add_dependency "railties"
   spec.add_dependency "zeitwerk", ">= 2.4.0"
-
-  spec.add_development_dependency "minitest-around"
-  spec.add_development_dependency "activemodel", ">= 4.0.0"
-  spec.add_development_dependency "activerecord-nulldb-adapter"
 end
