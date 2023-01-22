@@ -8,7 +8,9 @@ version links.
 
 ## main
 
-Add test coverage for `field_id` and `field_name`
+## [0.2.1] - Jan 22, 2023
+
+Add test coverage for `field_id` and `field_name`, and delegate to view context
 
 ## [0.2.0] - Jan 22, 2023
 
