@@ -8,6 +8,8 @@ version links.
 
 ## main
 
+Add test coverage for `field_id` and `field_name`
+
 ## [0.2.0] - Jan 22, 2023
 
 Implement the `FormBuilder` interface by proxying its underlying view
