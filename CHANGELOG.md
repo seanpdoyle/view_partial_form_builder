@@ -8,6 +8,8 @@ version links.
 
 ## main
 
+## [0.2.0] - Jan 22, 2023
+
 Implement the `FormBuilder` interface by proxying its underlying view
 `@template` instance to `ViewPartialFormBuilder::TemplateProxy`.
 
