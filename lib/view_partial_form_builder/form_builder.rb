@@ -18,10 +18,15 @@ module ViewPartialFormBuilder
       )
     end
 
-    def label(method, text = nil, **options, &block)
+    def label(method, text_or_options = nil, options = {}, &block)
+      if text_or_options.is_a?(Hash)
+        options.merge! text_or_options
+        text_or_options = nil
+      end
+
       locals = {
         method: method,
-        text: text,
+        text: text_or_options,
         options: options,
         block: block,
       }
@@ -40,7 +45,7 @@ module ViewPartialFormBuilder
       render_partial("check_box", locals, fallback: -> { super })
     end
 
-    def radio_button(method, tag_value, **options)
+    def radio_button(method, tag_value, options = {})
       locals = {
         method: method,
         tag_value: tag_value,
@@ -50,7 +55,7 @@ module ViewPartialFormBuilder
       render_partial("radio_button", locals, fallback: -> { super })
     end
 
-    def select(method, choices = nil, options = {}, **html_options, &block)
+    def select(method, choices = nil, options = {}, html_options = {}, &block)
       html_options = @default_html_options.merge(html_options)
 
       locals = {
@@ -64,7 +69,7 @@ module ViewPartialFormBuilder
       render_partial("select", locals, fallback: -> { super }, &block)
     end
 
-    def collection_select(method, collection, value_method, text_method, options = {}, **html_options)
+    def collection_select(method, collection, value_method, text_method, options = {}, html_options = {})
       html_options = @default_html_options.merge(html_options)
 
       locals = {
@@ -79,7 +84,7 @@ module ViewPartialFormBuilder
       render_partial("collection_select", locals, fallback: -> { super })
     end
 
-    def collection_check_boxes(method, collection, value_method, text_method, options = {}, **html_options, &block)
+    def collection_check_boxes(method, collection, value_method, text_method, options = {}, html_options = {}, &block)
       html_options = @default_html_options.merge(html_options)
 
       locals = {
@@ -95,7 +100,7 @@ module ViewPartialFormBuilder
       render_partial("collection_check_boxes", locals, fallback: -> { super }, &block)
     end
 
-    def collection_radio_buttons(method, collection, value_method, text_method, options = {}, **html_options, &block)
+    def collection_radio_buttons(method, collection, value_method, text_method, options = {}, html_options = {}, &block)
       html_options = @default_html_options.merge(html_options)
 
       locals = {
@@ -111,7 +116,7 @@ module ViewPartialFormBuilder
       render_partial("collection_radio_buttons", locals, fallback: -> { super }, &block)
     end
 
-    def grouped_collection_select(method, collection, group_method, group_label_method, option_key_method, option_value_method, options = {}, **html_options)
+    def grouped_collection_select(method, collection, group_method, group_label_method, option_key_method, option_value_method, options = {}, html_options = {})
       html_options = @default_html_options.merge(html_options)
 
       locals = {
@@ -128,7 +133,7 @@ module ViewPartialFormBuilder
       render_partial("grouped_collection_select", locals, fallback: -> { super })
     end
 
-    def time_zone_select(method, priority_zones = nil, options = {}, **html_options)
+    def time_zone_select(method, priority_zones = nil, options = {}, html_options = {})
       html_options = @default_html_options.merge(html_options)
 
       locals = {
@@ -141,7 +146,7 @@ module ViewPartialFormBuilder
       render_partial("time_zone_select", locals, fallback: -> { super })
     end
 
-    def date_select(method, options = {}, **html_options)
+    def date_select(method, options = {}, html_options = {})
       locals = {
         method: method,
         options: options,
@@ -151,7 +156,7 @@ module ViewPartialFormBuilder
       render_partial("date_select", locals, fallback: -> { super })
     end
 
-    def hidden_field(method, **options)
+    def hidden_field(method, options = {})
       @emitted_hidden_id = true if method == :id
 
       locals = {
@@ -162,7 +167,7 @@ module ViewPartialFormBuilder
       render_partial("hidden_field", locals, fallback: -> { super })
     end
 
-    def file_field(method, **options)
+    def file_field(method, options = {})
       self.multipart = true
 
       locals = {
@@ -173,7 +178,7 @@ module ViewPartialFormBuilder
       render_partial("file_field", locals, fallback: -> { super })
     end
 
-    def submit(value = nil, **options)
+    def submit(value = nil, options = {})
       value, options = nil, value if value.is_a?(Hash)
       value ||= submit_default_value
 
@@ -185,7 +190,7 @@ module ViewPartialFormBuilder
       render_partial("submit", locals, fallback: -> { super })
     end
 
-    def button(value = nil, **options)
+    def button(value = nil, options = {})
       value, options = nil, value if value.is_a?(Hash)
       value ||= submit_default_value
 
@@ -205,7 +210,7 @@ module ViewPartialFormBuilder
 
     DYNAMICALLY_DECLARED.each do |selector|
       class_eval <<-RUBY, __FILE__, __LINE__ + 1
-        def #{selector}(method, **options)
+        def #{selector}(method, options = {})
           render_partial(
             "#{selector}",
             {
