@@ -1,5 +1,7 @@
 module ViewPartialFormBuilder
   class TemplateProxy
+    delegate :_object_for_form_builder, :field_id, :field_name, to: :@template
+
     def initialize(builder:, template:)
       @template = template
       @builder = builder
