@@ -1,6 +1,6 @@
 module ViewPartialFormBuilder
   class TemplateProxy
-    delegate :_object_for_form_builder, :field_id, :field_name, to: :@template
+    delegate :field_id, :field_name, to: :@template
 
     def initialize(builder:, template:)
       @template = template
@@ -35,19 +35,21 @@ module ViewPartialFormBuilder
     private
 
     def method_missing(name, *arguments, &block)
-      arguments_after_object_name = arguments.from(1)
+      if @builder.respond_to?(name)
+        arguments_after_object_name = arguments.from(1)
 
-      render(name, arguments: arguments_after_object_name, block: block) do
-        if @template.respond_to?(name)
+        render(name, arguments: arguments_after_object_name, block: block) do
           @template.public_send(name, *arguments, &block)
-        else
-          super
         end
+      elsif @template.respond_to?(name)
+        @template.public_send(name, *arguments, &block)
+      else
+        super
       end
     end
 
     def respond_to_missing?(name, include_private = false)
-      @template.respond_to_missing?(name, include_private)
+      @builder.respond_to_missing?(name) || @template.respond_to_missing?(name)
     end
 
     def render(partial_name, arguments:, block: nil, &fallback)
@@ -79,12 +81,20 @@ module ViewPartialFormBuilder
       current_prefix = current_virtual_path.delete_suffix("/_#{template_name}")
       template_is_partial = true
 
-      @template.lookup_context.find_all(
-        template_name,
-        lookup_override.prefixes_after(current_prefix),
-        template_is_partial,
-        locals.keys
-      ).first
+      partials = template_names_for(template_name).lazy.map do |name|
+        @template.lookup_context.find_all(
+          name,
+          lookup_override.prefixes_after(current_prefix),
+          template_is_partial,
+          locals.keys
+        ).first
+      end
+
+      partials.find(&:present?)
+    end
+
+    def template_names_for(template_name)
+      [template_name, *@builder.aliased_field_helpers[template_name]].compact
     end
 
     def about_to_recurse_infinitely?(partial)
@@ -102,7 +112,7 @@ module ViewPartialFormBuilder
     def lookup_override
       LookupOverride.new(
         prefixes: @template.lookup_context.prefixes,
-        object_name: @builder.object&.model_name || @builder.object_name,
+        object_name: @builder.object.try(:model_name) || @builder.object_name,
         view_partial_directory: ViewPartialFormBuilder.view_partial_directory
       )
     end

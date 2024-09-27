@@ -1,5 +1,6 @@
 # Configure Rails Environment
 ENV["RAILS_ENV"] = "test"
+ENV["DATABASE_URL"] = "sqlite3::memory:"
 
 require_relative "../test/dummy/config/environment"
 ActiveRecord::Migrator.migrations_paths = [File.expand_path("../test/dummy/db/migrate", __dir__)]
