@@ -8,6 +8,8 @@ version links.
 
 ## main
 
+Expand matrix of supported versions to include `ruby@3.3` and `rails@7.2`.
+
 ## [0.2.1] - Jan 22, 2023
 
 Add test coverage for `field_id` and `field_name`, and delegate to view context

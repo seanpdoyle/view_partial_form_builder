@@ -14,7 +14,7 @@ gemspec
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 
-rails_version = ENV.fetch("RAILS_VERSION", "7.0")
+rails_version = ENV.fetch("RAILS_VERSION", "7.2")
 
 rails_constraint =
   if rails_version == "main"
@@ -26,8 +26,8 @@ rails_constraint =
 gem "rails", rails_constraint
 gem "activemodel", rails_constraint
 gem "sprockets-rails"
+gem "sqlite3", (rails_version == "main") ? ">= 2.1" : "~> 1.4"
 
 group :test do
-  gem "activerecord-nulldb-adapter"
   gem "minitest-around"
 end
