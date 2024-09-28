@@ -8,6 +8,8 @@ version links.
 
 ## main
 
+## [0.2.2] - Sep 27, 2024
+
 Expand matrix of supported versions to include `ruby@3.3` and `rails@7.2`.
 
 ## [0.2.1] - Jan 22, 2023
