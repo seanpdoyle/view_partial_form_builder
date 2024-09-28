@@ -8,6 +8,13 @@ version links.
 
 ## main
 
+Drop [end-of-life Ruby][] versions 2.7 and 3.0.
+
+Drop [end-of-life Rails][] versions 6.1 and 7.0
+
+[end-of-life Ruby]: https://www.ruby-lang.org/en/downloads/branches/
+[end-of-life Rails]: https://rubyonrails.org/maintenance
+
 ## [0.2.2] - Sep 27, 2024
 
 Expand matrix of supported versions to include `ruby@3.3` and `rails@7.2`.
